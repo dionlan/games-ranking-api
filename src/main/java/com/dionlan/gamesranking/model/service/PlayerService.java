@@ -1,5 +1,7 @@
 package com.dionlan.gamesranking.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -22,9 +24,14 @@ public class PlayerService {
 	@Autowired
 	private GameService gameService;
 	
+	public List<Player> allPlayers(){
+		return playerRepository.findAll();
+	}
+	
 	@Transactional
 	public Player save(Player player){
 		try {
+			playerValidate(player);
 			return playerRepository.save(player);
 		} catch (DataIntegrityViolationException e) {
 			throw new PlayerAlreadyRegisteredException(String.format(MSG_PLAYER_REGISTERED, player.getNickname()));
@@ -48,7 +55,7 @@ public class PlayerService {
 	}
 	
 	public Player incrementWins(Player player) {
-		gameValidade(player);
+		gameValidate(player);
 		Long playerId = player.getGame().getId();
 		Game game = gameService.findOrException(playerId);
 		player.setGame(game);
@@ -56,19 +63,31 @@ public class PlayerService {
 	}
 	
 	public Player incrementGames(Player player) {
-		gameValidade(player);
+		gameValidate(player);
 		Long playerId = player.getGame().getId();
 		Game game = gameService.findOrException(playerId);
 		player.setGame(game);
 		return playerRepository.save(player);
 	}
 	
-	private void gameValidade(Player player) {
-		if(player.getGame().getTotalWins() == null || player.getGame().getTotalWins() <= 0) {
-			throw new BusinessException("Informe um valor válido maior que zero.");
+	private void playerValidate(Player player) {
+		if(player.getName() == null || player.getName().equals("")) {
+			throw new BusinessException("Informe um valor para o nome");
 		}
+		if(player.getNickname() == null || player.getNickname().equals("")) {
+			throw new BusinessException("Informe um valor para o apelido. Não pode conter espaços em branco");
+		}
+	}
+	
+	private void gameValidate(Player player) {
 		if(player.getGame().getTotalGames() < player.getGame().getTotalWins()) {
 			throw new BusinessException("O total de partidas não pode ser inferior ao total de vitórias");
+		}
+		if(player.getGame().getTotalWins() == null || player.getGame().getTotalWins() < 0) {
+			throw new BusinessException("O total de vitórias não pode ser inferior a 0");
+		}
+		if(player.getGame().getTotalGames() == null || player.getGame().getTotalWins() < 1) {
+			throw new BusinessException("O total de partidas não pode ser inferior a 1");
 		}
 	}
 }

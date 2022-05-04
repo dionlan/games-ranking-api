@@ -1,7 +1,10 @@
 package com.dionlan.gamesranking.api.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,7 +23,7 @@ import com.dionlan.gamesranking.model.exception.PlayerNotFoundException;
 import com.dionlan.gamesranking.model.service.PlayerService;
 
 @RestController
-@RequestMapping("/api/player")
+@RequestMapping("/api/players")
 public class PlayerController {
 	
 	@Autowired
@@ -31,6 +34,18 @@ public class PlayerController {
 	
 	@Autowired
 	private PlayerDtoAssembler playerDtoAssembler;
+	
+	@GetMapping
+	public List<PlayerDto> listar(){
+		return playerDtoAssembler.toColletionModel(playerService.allPlayers());
+	}
+	
+	@GetMapping("/{nickname}")
+	public PlayerDto findByNickname(@PathVariable String nickname) {
+		Player player = playerService.getByNickname(nickname);
+		
+		return playerDtoAssembler.toDto(player);
+	}
 	
 	@PostMapping("/save")
 	@ResponseStatus(HttpStatus.CREATED)

@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
@@ -18,18 +17,18 @@ public class Game {
 	private Long id;
 	
 	@Column(name = "total_games")
-	@NotBlank(message = "Informe a quantidade de partidas")
-	private Integer totalGames;
+	private Integer totalGames = Integer.valueOf(0);
 	
 	@Column(name = "total_wins")
-	private Integer totalWins;
+	private Integer totalWins = Integer.valueOf(0);
 	
-	public void setTotalWins(Integer total) {
-		this.totalWins += total;
+	public void setTotalWins(Integer totalWins) {
+		this.setTotalGames(totalWins);
+		this.totalWins += totalWins;
 	}
 	
-	public void setTotalGames(Integer total) {
-		this.totalGames += total;
+	public void setTotalGames(Integer totalGames) {
+		this.totalGames += totalGames;
 	}
 	
 	/*
