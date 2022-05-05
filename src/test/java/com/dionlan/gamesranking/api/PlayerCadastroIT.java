@@ -18,11 +18,12 @@ import io.restassured.http.ContentType;
 /**
  * A partir de out/nov de 2019 a versão 2.2 do Spring Boot implementa o JUnit 5 com as novas anotações
  * @author Dionlan
- *
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("/application-test.properties")
 public class PlayerCadastroIT {
+	
+	private static final int NICKNAME_INEXISTENTE = 100;
 	
 	@LocalServerPort
 	private int port;
@@ -57,6 +58,17 @@ public class PlayerCadastroIT {
 			.post()
 		.then()
 			.statusCode(HttpStatus.CREATED.value());
+	}
+	
+	@Test
+	public void deveRetornarStatus404_QuandoConsultarJogadorInexistente() {
+		given()
+			.pathParam("nickname", NICKNAME_INEXISTENTE)
+			.accept(ContentType.JSON)
+		.when()
+			.get("/{nickname}")
+		.then()
+			.statusCode(HttpStatus.NOT_FOUND.value());
 	}
 	
 	private void preparDados() {
