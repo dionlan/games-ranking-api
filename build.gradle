@@ -26,9 +26,13 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.4.0'
+	testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.4.0'
 	implementation group: 'io.rest-assured', name: 'rest-assured-all', version: '4.4.0'
 	compileOnly 'org.projectlombok:lombok'
+}
+compileOptions {
+    targetCompatibility JavaVersion.VERSION_11
+    sourceCompatibility JavaVersion.VERSION_11
 }
 
 tasks.named('test') {
