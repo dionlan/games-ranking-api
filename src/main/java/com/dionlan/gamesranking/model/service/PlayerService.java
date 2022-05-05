@@ -1,6 +1,8 @@
 package com.dionlan.gamesranking.model.service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -25,7 +27,12 @@ public class PlayerService {
 	private GameService gameService;
 	
 	public List<Player> allPlayers(){
-		return playerRepository.findAll();
+		List<Player> players = playerRepository.findAll();
+		List<Player> listaStream = players
+				.stream()
+				.sorted(Comparator.comparing(t -> t.getGame().getTotalWins(), Comparator.reverseOrder()))
+				.collect(Collectors.toList());
+		return listaStream;
 	}
 	
 	@Transactional

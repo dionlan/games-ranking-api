@@ -1,6 +1,6 @@
 package com.dionlan.gamesranking.model.exception;
 
-public class PlayerAlreadyRegisteredException extends EntityNotFoundException {
+public class PlayerAlreadyRegisteredException extends BusinessException {
 
 	private static final long serialVersionUID = 1L;
 
