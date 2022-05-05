@@ -22,7 +22,7 @@ CMD /C %HEROKU_PATH%heroku plugins:install heroku-cli-deploy
 IF ERRORLEVEL 1 PAUSE
 
 GOTO:comment
-//comentário, nessa etapa o script deleta a aplicação e todos os addons (mysql = addons ClearDBMySQL)
+//comentario, nessa etapa o script deleta a aplicacao e todos os addons (mysql = addons ClearDBMySQL)
 CMD /C %HEROKU_PATH%heroku apps:destroy --app %APP_NAME%
 IF ERRORLEVEL 1 PAUSE
 

@@ -8,8 +8,8 @@ SET HEROKU_PATH=C:\Progra~1\heroku\bin\
 SET BROWSER=C:\Progra~1\Google\Chrome\Application\chrome.exe
 SET HEROKU_DEBUG=1
 
-SET APP_NAME=financial-diagnosis-api
-SET PROJECT_PATH=C:\Users\dius_\Documents\AlgaWorkspace\%APP_NAME%\
+SET APP_NAME=games-ranking-api
+SET PROJECT_PATH=C:\Users\dius_\Documents\workspace-spring-tool-suite-4-4.13.0.RELEASE\%APP_NAME%\
 SET PROJECT_HEROKU_PATH=%PROJECT_PATH%heroku\
 
 REM Use the following command to create the API key/token and set it
