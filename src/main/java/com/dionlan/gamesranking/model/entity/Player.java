@@ -55,13 +55,13 @@ public class Player implements Serializable {
 		return asList(
 				new Player("Dionlan", "dionlan", new Game(20, 20)),
 				new Player("Brenda", "brenda123", new Game(15, 10)),
-				new Player("Marília", "ma_548", new Game(16, 9)),
+				new Player("Marilia", "ma_548", new Game(16, 9)),
 				new Player("Julia", "juju.alves", new Game(35, 20)),
 				new Player("Priscila", "casinha123", new Game(14, 3)),
 				new Player("Thiago", "ti-barbosa", new Game(48, 0)),
 				new Player("Rita", "rita_1999", new Game(2, 2)),
 				new Player("Felipe", "felipe123", new Game(10, 2)),
-				new Player("João", "joaopaulo", new Game(50, 20))			
+				new Player("Joao", "joaopaulo", new Game(50, 20))			
 				);
 	}
 	

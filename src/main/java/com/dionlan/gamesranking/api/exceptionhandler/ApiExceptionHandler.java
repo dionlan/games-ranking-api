@@ -36,7 +36,7 @@ import com.fasterxml.jackson.databind.exc.PropertyBindingException;
  * @author Dionlan
  *
  */
-@ControllerAdvice //todas as exceções do projeto serão tratadas por esta classe (ponto central), tirando a responsabilidade de cada controlador possuir seu próprio ExceptionHandler
+@ControllerAdvice //todas as excecoes do projeto serao tratadas por esta classe (ponto central), tirando a responsabilidade de cada controlador possuir seu proprio ExceptionHandler
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@Autowired
@@ -62,7 +62,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		
 		ProblemType problemType = ProblemType.DADOS_INVALIDOS;
-		String detail = "Um ou mais campos estão inválidos. Faça o preenchimento correto e tente novamente.";
+		String detail = "Um ou mais campos estao invalidos. Faca o preenchimento correto e tente novamente.";
 		
 		List<Problem.Object> problemObjects = bindingResult.getAllErrors().stream()
 				.map(objectError -> {
@@ -109,7 +109,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request){
 		
 		ProblemType problemType = ProblemType.RECURSO_NAO_ENCONTRADO;
-		String detail = String.format("O recurso '%s', que você tentou acessar é inexistente", ex.getRequestURL());
+		String detail = String.format("O recurso '%s', que voce tentou acessar eh inexistente", ex.getRequestURL());
 		
 		Problem problem = createProblemBuilder(status, problemType, detail)
 				.userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
@@ -135,8 +135,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		ProblemType problemType = ProblemType.PARAMETRO_INVALIDO;
 		
-		String detail = String.format("o parâmetro de URL '%s' recebeu o valor '%s', que é de um tipo inválido. "
-				+ "Corrija e informe o valor compatível com o tipo %s.", ex.getName(), ex.getValue(), ex.getRequiredType().getSimpleName());
+		String detail = String.format("o parametro de URL '%s' recebeu o valor '%s', que eh de um tipo invalido. "
+				+ "Corrija e informe o valor compativel com o tipo %s.", ex.getName(), ex.getValue(), ex.getRequiredType().getSimpleName());
 		
 		Problem problem = createProblemBuilder(status, problemType, detail)
 				.userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
@@ -160,7 +160,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		}
 		
 		ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;
-		String detail = "O corpo da requisição está inválido. Verifique erro de sintaxe.";
+		String detail = "O corpo da requisicao esta invalido. Verifique erro de sintaxe.";
 		
 		Problem problem = createProblemBuilder(status, problemType, detail)
 				.userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
@@ -172,11 +172,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	private ResponseEntity<Object> handlePropertyBinding(PropertyBindingException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		
-		// Criei o método joinPath para reaproveitar em todos os métodos que precisam
+		// Criei o mï¿½todo joinPath para reaproveitar em todos os mï¿½todos que precisam
 		// concatenar os nomes das propriedades (separando por ".")
 		String path = joinPath(ex.getPath());
 		ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;
-		String detail = String.format("A propriedade '%s' não existe. "
+		String detail = String.format("A propriedade '%s' nao existe. "
 				+ "Corrija ou remova essa propriedade e tente novamente.", path);
 
 		Problem problem = createProblemBuilder(status, problemType, detail)
@@ -190,8 +190,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		
 		String path = joinPath(ex.getPath());
 		ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;
-		String detail = String.format("A propriedade '%s' recebeu o valor '%s', que é de um tipo inválido."
-				+ "Corrija e informe um valor compatível com o tipo %s. ", path, ex.getValue(), ex.getTargetType().getName());
+		String detail = String.format("A propriedade '%s' recebeu o valor '%s', que eh de um tipo invalido."
+				+ "Corrija e informe um valor compativel com o tipo %s. ", path, ex.getValue(), ex.getTargetType().getName());
 		
 		Problem problem = createProblemBuilder(status, problemType, detail)
 				.userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)

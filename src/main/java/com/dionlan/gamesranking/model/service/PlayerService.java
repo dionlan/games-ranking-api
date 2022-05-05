@@ -82,19 +82,19 @@ public class PlayerService {
 			throw new BusinessException("Informe um valor para o nome");
 		}
 		if(player.getNickname() == null || player.getNickname().equals("")) {
-			throw new BusinessException("Informe um valor para o apelido. Não pode conter espaços em branco");
+			throw new BusinessException("Informe um valor para o apelido. Nao pode conter espacos em branco");
 		}
 	}
 	
 	private void gameValidate(Player player) {
 		if(player.getGame().getTotalGames() < player.getGame().getTotalWins()) {
-			throw new BusinessException("O total de partidas não pode ser inferior ao total de vitórias");
+			throw new BusinessException("O total de partidas nao pode ser inferior ao total de vitorias");
 		}
 		if(player.getGame().getTotalWins() == null || player.getGame().getTotalWins() < 0) {
-			throw new BusinessException("O total de vitórias não pode ser inferior a 0");
+			throw new BusinessException("O total de vitorias nao pode ser inferior a 0");
 		}
 		if(player.getGame().getTotalGames() == null || player.getGame().getTotalWins() < 1) {
-			throw new BusinessException("O total de partidas não pode ser inferior a 1");
+			throw new BusinessException("O total de partidas nao pode ser inferior a 1");
 		}
 	}
 }
