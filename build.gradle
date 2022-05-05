@@ -7,7 +7,7 @@ plugins {
 
 group = 'com.dionlan'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '11.0.11'
 
 repositories {
 	mavenCentral()
@@ -29,12 +29,11 @@ dependencies {
 	testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.4.0'
 	implementation group: 'io.rest-assured', name: 'rest-assured-all', version: '4.4.0'
 	compileOnly 'org.projectlombok:lombok'
-}
-compileOptions {
+	compileOptions {
     targetCompatibility JavaVersion.VERSION_11
     sourceCompatibility JavaVersion.VERSION_11
+	}
 }
-
 tasks.named('test') {
 	useJUnitPlatform()
 }
