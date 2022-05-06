@@ -23,12 +23,12 @@ public class Game {
 	private Integer totalWins = Integer.valueOf(0);
 	
 	public void setTotalWins(Integer totalWins) {
-		this.setTotalGames(totalWins);
-		this.totalWins += totalWins;
+		///this.setTotalGames(totalWins);
+		this.totalWins = totalWins;
 	}
 	
 	public void setTotalGames(Integer totalGames) {
-		this.totalGames += totalGames;
+		this.totalGames = totalGames;
 	}
 	
 	/*
