@@ -1,9 +1,16 @@
 HELP.md
 .gradle
-build/
+target/
+heroku/
 !gradle/wrapper/gradle-wrapper.jar
+
+build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
 ### STS ###
 .apt_generated
@@ -35,3 +42,16 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
