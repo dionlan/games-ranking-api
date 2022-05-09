@@ -1,6 +1,6 @@
 package com.dionlan.gamesranking.api.controller;
 
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,8 +36,8 @@ public class PlayerController {
 	private PlayerDtoAssembler playerDtoAssembler;
 	
 	@GetMapping
-	public List<PlayerDto> listar(){
-		return playerDtoAssembler.toColletionModel(playerService.allPlayers());
+	public Map<Integer, Player> listar(){
+		return playerService.allPlayers();
 	}
 	
 	@GetMapping("/{nickname}")

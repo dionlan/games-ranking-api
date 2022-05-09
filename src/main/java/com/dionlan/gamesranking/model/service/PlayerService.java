@@ -2,6 +2,8 @@ package com.dionlan.gamesranking.model.service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +28,13 @@ public class PlayerService {
 	@Autowired
 	private GameService gameService;
 	
-	public List<Player> allPlayers(){
+	public Map<Integer, Player> allPlayers(){
 		List<Player> players = playerRepository.findAll();
-		List<Player> listaStream = players
-				.stream()
-				.sorted(Comparator.comparing(t -> t.getGame().getTotalWins(), Comparator.reverseOrder()))
-				.collect(Collectors.toList());
-		return listaStream;
+		AtomicInteger index = new AtomicInteger(1);
+		Map<Integer, Player> nameMap =  players.stream()
+		    .sorted(Comparator.comparing(t -> t.getGame().getTotalWins(), Comparator.reverseOrder()))
+		    .collect(Collectors.toMap(value -> index.getAndIncrement(), e1 -> e1));
+		return nameMap;
 	}
 	
 	@Transactional
@@ -62,39 +64,29 @@ public class PlayerService {
 	}
 	
 	public Player incrementWins(Player player) {
-		gameValidate(player);
+		playerValidate(player);
 		Long playerId = player.getGame().getId();
 		Game game = gameService.findOrException(playerId);
 		player.setGame(game);
 		return playerRepository.save(player);
 	}
 	
-	public Player incrementGames(Player player) {
-		gameValidate(player);
-		Long playerId = player.getGame().getId();
-		Game game = gameService.findOrException(playerId);
-		player.setGame(game);
-		return playerRepository.save(player);
-	}
-	
-	private void playerValidate(Player player) {
+	public void playerValidate(Player player) {
 		if(player.getName() == null || player.getName().equals("")) {
 			throw new BusinessException("Informe um valor para o nome");
 		}
 		if(player.getNickname() == null || player.getNickname().equals("")) {
 			throw new BusinessException("Informe um valor para o apelido. Nao pode conter espacos em branco");
 		}
-	}
-	
-	private void gameValidate(Player player) {
-		if(player.getGame().getTotalGames() < player.getGame().getTotalWins()) {
-			throw new BusinessException("O total de partidas nao pode ser inferior ao total de vitorias");
-		}
 		if(player.getGame().getTotalWins() == null || player.getGame().getTotalWins() < 0) {
 			throw new BusinessException("O total de vitorias nao pode ser inferior a 0");
 		}
-		if(player.getGame().getTotalGames() == null || player.getGame().getTotalWins() < 1) {
+		if(player.getGame().getTotalGames() == null || player.getGame().getTotalGames() < 1) {
 			throw new BusinessException("O total de partidas nao pode ser inferior a 1");
 		}
+		if(player.getGame().getTotalGames() < player.getGame().getTotalWins()) {
+			throw new BusinessException("O total de partidas nao pode ser inferior ao total de vitorias");
+		}
+
 	}
 }

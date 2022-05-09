@@ -16,6 +16,9 @@ import com.dionlan.gamesranking.model.entity.Game;
 import com.dionlan.gamesranking.model.entity.Player;
 import com.dionlan.gamesranking.model.repository.PlayerRepository;
 
+/*
+ * * Refatorado: os metodos de incrementar foram extraidos para a camada de servico
+ */
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
 @AutoConfigureTestDatabase(replace = Replace.NONE)
@@ -44,37 +47,37 @@ public class PlayerRepositoryTest {
 	public void deveIncrementarAQuantidadeDeVitorias() {
 		// Cenario: cria e recupera um jogador para ser deletado
 		Player player = criarEPersistirJogador();
-		player.setNickname("dionlan");
-		player.getGame().setTotalWins(10); //sera somada 10 vitorias no cenario informado de 20, devendo retornar 30
+		player.setNickname("nicknameNovo");
+		player.getGame().setTotalWins(30); //sera somada 10 vitorias no cenario informado de 20, devendo retornar 30
 		
 		// Execucao
 		playerRepository.save(player);
 		Player jogadorComVitoriaIncrementada = entityManager.find(Player.class, player.getId());
 		
 		//Verificacao 
-		assertThat(jogadorComVitoriaIncrementada.getNickname()).isEqualTo("dionlan");
+		assertThat(jogadorComVitoriaIncrementada.getNickname()).isEqualTo("nicknameNovo");
 		assertThat(jogadorComVitoriaIncrementada.getGame().getTotalWins()).isEqualTo(30);
 	}
 	
 	/**
-	 * Por padrao a execucao do teste eh incremental da cima pra baixo, logo, considerando o teste anterior, temos:
-	 * No teste anterior o resultado total de vitórias se tortou 30
+	 * Refatorado: os metodos de incrementar foram extraidos para a camada de servico
+	 * No teste anterior o resultado total de vitorias se tortou 30
 	 * Para testar o incremento de partidas, deve-ser somar o valor de vitorias ao total de partidas, que no caso eh 35 resultado em 65
 	 */
 	@Test
 	public void deveIncrementarAQuantidadeDePartidas() {
 		// Cenario: cria e recupera um jogador para ser deletado
 		Player player = criarEPersistirJogador();
-		player.setNickname("dionlan");
-		player.getGame().setTotalGames(10); 
+		player.setNickname("nicknameNovo");
+		player.getGame().setTotalGames(45); 
 		
 		// Execucao
 		playerRepository.save(player);
 		Player jogadorComPartidaIncrementada = entityManager.find(Player.class, player.getId());
 		
 		//Verificacao 
-		assertThat(jogadorComPartidaIncrementada.getNickname()).isEqualTo("dionlan");
-		assertThat(jogadorComPartidaIncrementada.getGame().getTotalGames()).isEqualTo(65);
+		assertThat(jogadorComPartidaIncrementada.getNickname()).isEqualTo("nicknameNovo");
+		assertThat(jogadorComPartidaIncrementada.getGame().getTotalGames()).isEqualTo(45);
 	}
 	
 	private Player criarEPersistirJogador() {
@@ -83,7 +86,7 @@ public class PlayerRepositoryTest {
 		game.setTotalWins(20);
 		game.setTotalGames(35);
 		player.setName("Dionlan");
-		player.setNickname("dionlan");
+		player.setNickname("nicknameNovo");
 		player.setGame(game);
 		entityManager.persist(player);
 		return player;

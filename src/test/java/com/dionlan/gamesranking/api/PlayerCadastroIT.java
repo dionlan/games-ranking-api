@@ -15,15 +15,11 @@ import com.dionlan.gamesranking.model.entity.input.PlayerInput;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
-/**
- * A partir de out/nov de 2019 a versão 2.2 do Spring Boot implementa o JUnit 5 com as novas anotações
- * @author Dionlan
- */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("/application-test.properties")
 public class PlayerCadastroIT {
 	
-	private static final int NICKNAME_INEXISTENTE = 100;
+	private static final String NICKNAME_INEXISTENTE = "nicknamenotfound";
 	
 	@LocalServerPort
 	private int port;
@@ -51,7 +47,7 @@ public class PlayerCadastroIT {
 	@Test
 	public void deveRetornarStatus201_QuandoCadastrarJogador() {
 		given()
-			.body("{\"name\":\"TestPlayer\",\"nickname\":\"nick124\",\"game\":{\"totalGames\":10,\"totalWins\":10}}")
+			.body("{\"name\":\"TestPlayer\",\"nickname\":\"nicknovo\",\"game\":{\"totalGames\":10,\"totalWins\":10}}")
 			.contentType(ContentType.JSON)
 			.accept(ContentType.JSON)
 		.when()
