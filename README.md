@@ -1,7 +1,7 @@
 # API Games Ranking
 
-Implementação de uma API Rest para classificar jogadores de acordo com a quantidade de vitórias. 
-Desafio em andamento de processo seletivo Dev Java.
+Implementação de uma API Rest + Angular para classificar jogadores de acordo com a quantidade de vitórias. Os serviços referentes às funcionalidades solicitadas foi implementado usando TDD.
+Desafio como parte de um processo seletivo Dev Pleno Java. Deadline de 48 horas.
 
 <a href="https://games-ranking-app.herokuapp.com/">LIVE DEMO</a>
 
